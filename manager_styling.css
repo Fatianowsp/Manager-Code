@@ -1,0 +1,794 @@
+/* Nav bar for manager styling */
+.manager-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 230px;
+    height: 100vh;
+    background-color: #1e2a38;
+    color: #ecf0f1;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.5rem;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.sidebar-brand i {
+    stroke: #00cfff;
+    width: 28px;
+    height: 28px;
+}
+
+.sidebar-brand h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.nav-section {
+    margin-bottom: 2rem;
+}
+
+.nav-section-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #95a5a6;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-list li {
+    margin-bottom: 0.5rem;
+}
+
+.nav-list li a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 8px;
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.25s ease;
+}
+
+.nav-list li a:hover {
+    background-color: #34495e;
+    color: #00cfff;
+}
+
+.nav-list i {
+    width: 20px;
+    height: 20px;
+    stroke: #ecf0f1;
+    transition: stroke 0.25s;
+}
+
+.nav-list li a:hover i {
+    stroke: #00cfff;
+}
+
+.nav-compact .nav-list.compact {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+.manager-sidebar {
+    transition: width 0.3s ease;
+    overflow: hidden;
+}
+
+.manager-sidebar.expanded {
+    width: 230px;
+}
+
+.manager-sidebar.collapsed {
+    width: 60px;
+}
+
+.manager-sidebar.collapsed .sidebar-title,
+.manager-sidebar.collapsed .nav-section-title,
+.manager-sidebar.collapsed .nav-list span {
+    display: none;
+}
+
+.manager-sidebar.collapsed .nav-list a {
+    justify-content: center;
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+#toggleSidebar {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.25rem;
+    color: #ecf0f1;
+}
+
+#toggleSidebar i {
+    stroke: #ecf0f1;
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s ease;
+}
+
+
+
+
+
+/*Manager dashboard page styling */
+/* 📦 Main Container */
+/* Default sidebar state (collapsed = 60px) */
+body[data-sidebar="collapsed"] .dashboard-container {
+    margin-left: 60px;
+}
+
+body[data-sidebar="expanded"] .dashboard-container {
+    margin-left: 230px;
+}
+
+.dashboard-container {
+    transition: margin-left 0.3s ease;
+    padding: 1.5rem 2rem;
+    background-color: #f4f7fa;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.manager-sidebar.collapsed + .dashboard-container {
+    margin-left: 60px;
+}
+
+/* 🧠 Header */
+.dashboard-header {
+    margin-bottom: 1rem;
+}
+
+.dashboard-header h1 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+/* 🧮 Summary Section Grid */
+.summary-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* 📊 Each Summary Section */
+.summary-section {
+    background-color: #ffffff;
+    padding: 1.25rem;
+    border-radius: 10px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.08);
+}
+
+.summary-section h2 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #34495e;
+    margin-bottom: 1rem;
+}
+
+/* ⏰ Refresh Time */
+#lastRefreshed {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    margin-bottom: 0.75rem;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background : url("/static/sulzer1.jpg") center center no-repeat fixed;
+    background-size : cover;
+    color : #333;
+    line-height : 1.5;
+    }
+    .container {
+    max-width : 1600px;
+    height : 1200px;
+    margin : 50px auto;
+    padding : 20px;
+    position : relative;
+    }
+
+/* Header Styling */
+.header {
+    text-align: center;
+    padding: 20px 15px;
+    margin-bottom: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+    h1, h2, p {
+    text-align : center;
+    margin : 0 0 10px;
+    }
+    h1 {
+    color : #0056b3;
+    font-size : 28px;
+    }
+    h2 {
+    color : #0056b3;
+    font-size : 22px;
+    cursor : move;
+    }
+    p {
+    font-style : italic;
+    }
+
+
+
+
+
+
+
+/* ===== Layout ===== */
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+}
+
+.dashboard-layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.main-content {
+    flex-grow: 1;
+    padding: 24px;
+    overflow-y: auto;
+}
+
+/* ===== Navbar Placeholder (override in manager_navbar.html if needed) ===== */
+.sidebar {
+    width: 220px;
+    background-color: #1e2a38;
+    color: #fff;
+    padding: 20px;
+}
+
+.sidebar .nav-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.sidebar .nav-links {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar .nav-links li {
+    margin: 12px 0;
+}
+
+.sidebar .nav-links a {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.sidebar .nav-links a:hover {
+    color: #fff;
+}
+
+/* ===== Header ===== */
+.page-header h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+
+
+/* ===== Job Cards ===== */
+.job-cards-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.job-card {
+    background: #fff;
+    padding: 20px;
+    border-left: 6px solid #007acc;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+    transition: box-shadow 0.2s;
+}
+
+.job-card:hover {
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+}
+
+.job-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.job-title {
+    font-size: 16px;
+    color: #222;
+}
+
+.job-risk {
+    font-size: 18px;
+    color: #e53935;
+}
+
+.job-metrics {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.job-progress-bar {
+    height: 8px;
+    background: #ddd;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.job-progress-fill {
+    height: 100%;
+    background-color: #4caf50;
+    width: 0%;
+    transition: width 0.4s ease;
+}
+
+.expand-button {
+    background-color: #007acc;
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.expand-button:hover {
+    background-color: #005b9f;
+}
+
+.job-details {
+    font-size: 14px;
+    color: #333;
+    margin-top: 10px;
+}
+
+/* ===== Critical Jobs ===== */
+.critical-jobs-card {
+    background: #fff3f3;
+    border: 1px solid #e53935;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.critical-header {
+    font-weight: bold;
+    font-size: 18px;
+    color: #c62828;
+    margin-bottom: 8px;
+}
+
+.critical-body {
+    font-size: 14px;
+}
+
+.critical-body button {
+    margin-top: 10px;
+    background: #e53935;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* ===== Action Items ===== */
+.action-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.action-item-card {
+    background: #fff;
+    padding: 14px 18px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.06);
+    width: calc(33% - 12px);
+    min-width: 160px;
+    text-align: center;
+    transition: transform 0.2s ease;
+}
+
+.action-item-card:hover {
+    transform: translateY(-2px);
+}
+
+.action-label {
+    font-size: 14px;
+    color: #333;
+}
+
+.action-count {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007acc;
+    margin-top: 4px;
+}
+.dashboard-section {
+  margin-bottom: 40px;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  color: #1e2a38;
+}
+
+.subtext {
+  font-size: 14px;
+  color: #666;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+.job-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.filter-section .filter-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.filter-input {
+  flex-grow: 1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.filter-dropdown {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.action-items-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+
+
+
+  
+  /* ===== Metric Container Base ===== */
+  .metrics-section,
+  .metrics-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 16px;
+    margin-bottom: 24px;
+    width: 100%;
+  }
+  
+  /* 💡 Top Summary Bar */
+  .metrics-section.top-band {
+    padding: 12px 16px;
+    margin-bottom: 20px;
+    background-color: #f9fafb;
+    border-bottom: 1px solid #e2e8f0;
+    z-index: 10;
+    margin-left: var(--nav-expanded-width);
+    transition: margin-left 0.3s ease;
+  }
+  
+  /* Adjust when nav is collapsed */
+  .manager-sidebar.collapsed ~ main .metrics-section.top-band {
+    margin-left: var(--nav-collapsed-width);
+  }
+  
+  /* 🧩 Sidebar Summary Metrics */
+  .metrics-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 180px;
+    flex: 0 0 180px;
+    position: sticky;
+    top: 100px;
+    z-index: 1;
+  }
+  
+  /* 📊 Sidebar Metric Cards */
+  .metric-card.sidebar {
+    background: #ffffff;
+    border-left: 4px solid #007acc;
+    border-radius: 10px;
+    padding: 12px 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    font-size: 13px;
+    transition: transform 0.2s;
+    width: 100%;
+  }
+  
+  .metric-card.sidebar:hover {
+    transform: scale(1.02);
+  }
+  
+  .metric-card.sidebar .metric-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e2a38;
+    line-height: 1.2;
+  }
+  
+  .metric-card.sidebar .metric-label {
+    font-size: 11px;
+    color: #666;
+    opacity: 0.85;
+    line-height: 1.3;
+  }
+  
+  /* 🎯 General Metric Card Base */
+  .metric-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #e5e7eb;
+  }
+  
+  .metric-card:hover {
+    transform: scale(1.015);
+  }
+  
+  /* 🔹 Metric Card Sizing */
+  .metric-card.large {
+    flex: 1 1 220px;
+    max-width: 260px;
+  }
+  
+  .metric-card.medium {
+    flex: 1 1 180px;
+    max-width: 220px;
+  }
+  
+  .metric-card.small {
+    flex: 1 1 140px;
+    max-width: 180px;
+  }
+  
+  .metric-card:not(.large):not(.medium):not(.small) {
+    max-width: 220px;
+  }
+  
+  /* 📏 Compact layout override */
+  .metrics-grid.compact .metric-card {
+    padding: 12px 14px;
+    font-size: 13px;
+    flex: 1 1 160px;
+    max-width: 200px;
+  }
+  
+  /* 🔢 Typography (Shared) */
+  .metric-value {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1e2a38;
+    margin-bottom: 4px;
+  }
+  
+  .metric-label {
+    font-size: 13px;
+    color: #555;
+    opacity: 0.9;
+  }
+  
+  /* 🌀 Wrap-around section if used */
+  .metrics-section.wraps-around-jobs {
+    justify-content: space-around;
+    margin-top: 10px;
+    margin-bottom: 32px;
+    padding: 0 20px;
+    flex-wrap: wrap;
+    row-gap: 18px;
+  }
+  
+  /* 🔳 Job Grid + Sidebar Layout */
+  .job-layout-with-sidebar {
+    position: relative;
+    margin-left: var(--nav-expanded-width);
+    transition: margin-left 0.3s ease;
+  }
+  
+  /* Adjust job layout when nav is collapsed */
+  .manager-sidebar.collapsed ~ main .job-layout-with-sidebar {
+    margin-left: var(--nav-collapsed-width);
+  }
+  
+  /* Flex container for cards and metrics */
+  .job-grid-wrapper {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  /* ✅ Grid layout for job cards */
+  .job-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    flex: 1 1 auto;
+    gap: 20px;
+    min-width: 0;
+  }
+  
+
+/* 📊 D&I Summary Metric Section */
+#di-summary-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 12px 16px;
+    background-color: #f9fafb;
+    border-top: 1px solid #e0e6ec;
+    border-bottom: 1px solid #e0e6ec;
+    margin-left: var(--nav-expanded-width);
+    transition: margin-left 0.3s ease;
+  }
+  
+  .manager-sidebar.collapsed ~ main #di-summary-metrics {
+    margin-left: var(--nav-collapsed-width);
+  }
+  
+  /* 🧰 D&I Job Grid Section */
+  #di-jobs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    flex: 1 1 auto;
+    gap: 20px;
+    min-width: 0;
+    margin-left: var(--nav-expanded-width);
+    transition: margin-left 0.3s ease;
+  }
+  
+  .manager-sidebar.collapsed ~ main #di-jobs {
+    margin-left: var(--nav-collapsed-width);
+  }
+.job-card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+  transition: box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.job-card.good { border-left: 4px solid #4caf50; }
+.job-card.warning { border-left: 4px solid #ffc107; }
+.job-card.bad { border-left: 4px solid #f44336; }
+
+.job-header input.ref-input {
+  font-size: 1.2rem;
+  font-weight: 600;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+  background: transparent;
+  color: #1e2a38;
+}
+
+.job-meta {
+  font-size: 0.85rem;
+  color: #666;
+  display: flex;
+  justify-content: space-between;
+}
+
+.job-due {
+  font-size: 0.85rem;
+  color: #333;
+}
+
+.due-input {
+  margin-top: 4px;
+  width: 100%;
+  padding: 4px 6px;
+  font-size: 0.9rem;
+}
+
+.job-hours {
+  background: #f9fafb;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 4px;
+}
+
+.job-profit {
+  font-size: 0.9rem;
+  color: #1e2a38;
+  font-weight: 500;
+}
+
+.expand-button {
+  margin-top: 8px;
+  align-self: flex-end;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+  
+
+  
+  
+
+
+

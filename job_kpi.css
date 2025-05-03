@@ -1,0 +1,414 @@
+/* ========== Base Layout ========== */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #eef1f5;  /* Slightly richer gray-blue tone for gentle contrast */
+    margin: 0;
+    padding: 0;
+    color: #333;
+  }
+  
+  .job-kpi-wrapper {
+    max-width: 1300px;
+    margin: auto;
+    padding: 2rem;
+  }
+  
+  /* Optional: Soft background frame behind the entire page */
+  .job-kpi-wrapper::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom right, #f0f2f6, #e7ecf3);
+    z-index: -1;
+  }
+  
+  .kpi-section,
+  .kpi-metrics-wrapper {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1.5rem 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    border: 1px solid #e2e6ec;
+  }
+    
+
+
+/* ==== Professional Header Flex Layout ==== */
+.kpi-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background: #f2f5fa;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  /* ==== Main Left Section ==== */
+  .kpi-header-main {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .kpi-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #1a3d7c;
+    margin: 0;
+  }
+  
+  .kpi-subtitle {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 0.95rem;
+    color: #444;
+    margin-top: 0.2rem;
+  }
+  
+  .kpi-subtitle .job-id {
+    font-weight: 600;
+    color: #2c3e50;
+  }
+  
+  .kpi-subtitle .customer-name {
+    font-weight: 500;
+  }
+  
+  /* ==== Right Side: Due Date ==== */
+  .kpi-due-date {
+    font-size: 0.95rem;
+    color: #444;
+    text-align: right;
+  }
+  
+  .kpi-due-date label {
+    font-weight: 600;
+    margin-right: 0.5rem;
+    color: #2e4b70;
+  }
+  
+  
+  /* ========== Alert ========== */
+  .kpi-alert {
+    background-color: #ffefef;
+    border: 1px solid #e53935;
+    color: #b71c1c;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+  }
+  
+  .kpi-alert ul {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+  }
+
+
+
+  
+/* ==== KPI Metrics Panel Layout ==== */
+.kpi-metrics-panel {
+    background: #f5f7fa;
+    border-radius: 12px;
+    padding: 2rem;
+    margin-top: 2.5rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+  }
+  
+  /* ==== Grouping Panel Headers ==== */
+  .kpi-metric-group {
+    flex: 1 1 280px;
+    min-width: 250px;
+  }
+  
+  .kpi-metric-group h4 {
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    color: #1a2c45;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 0.3rem;
+  }
+  
+  /* ==== List Items ==== */
+  .kpi-metric-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  
+  .kpi-metric-item {
+    background: #ffffff;
+    border-radius: 8px;
+    padding: 0.6rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-left: 4px solid #d4dce5;
+    font-size: 0.95rem;
+    transition: background 0.2s ease-in-out;
+  }
+  
+  .kpi-metric-item:hover {
+    background: #f0f4fa;
+  }
+  
+  .kpi-metric-item span {
+    color: #444;
+    font-weight: 500;
+  }
+  
+  .kpi-metric-item strong {
+    font-size: 1rem;
+    color: #223f5e;
+    font-weight: 600;
+  }
+  
+
+
+
+  
+  /* ========== Section Blocks ========== */
+  .kpi-section {
+    margin-top: 3rem;
+  }
+  
+  .kpi-section h3 {
+    font-size: 1.25rem;
+    color: #1a3d7c;
+    margin-bottom: 1rem;
+  }
+  
+  /* ========== Tables ========== */
+  .kpi-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  }
+  
+  .kpi-table th,
+  .kpi-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: left;
+    font-size: 0.95rem;
+  }
+  
+  .kpi-table th {
+    background-color: #f0f4f8;
+    color: #1a3d7c;
+    font-weight: 600;
+  }
+  
+  .kpi-table td.text-danger {
+    color: #d32f2f;
+  }
+  
+  /* ========== Responsive ========== */
+  @media (max-width: 768px) {
+    .kpi-subheader {
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  
+    .kpi-metrics-grid {
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+  }
+
+  
+/* Work center summary Styling*/
+.chart-container {
+    width: 100%;
+    max-height: 350px;
+    height: 350px;
+    margin-top: 1rem;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  
+
+/*Slide out panel for different views in job kpi */
+/* ====== Sidebar Button ====== */
+.kpi-sidebar {
+    position: fixed;
+    left: 0;
+    top: 80px; /* Below header */
+    height: calc(100% - 80px);
+    width: 60px;
+    background-color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    z-index: 999;
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  .sidebar-btn {
+    width: 50px;
+    height: 50px;
+    margin: 8px 0;
+    background: none;
+    border: none;
+    color: #ecf0f1;
+    font-size: 22px;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s;
+  }
+  
+  .sidebar-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  .sidebar-btn::after {
+    content: attr(data-label);
+    position: absolute;
+    left: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #34495e;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    display: none;
+  }
+  
+  .sidebar-btn:hover::after {
+    display: block;
+  }
+  
+  
+  
+/* ====== Slideout Panel ====== */
+.slideout-panel {
+    position: fixed;
+    top: 0;
+    right: -800px; /* Keep hidden off-screen */
+    width: 800px;
+    height: 100%;
+    background-color: #f8f9fa;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+    overflow-y: auto;
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+  }
+  
+  .slideout-panel.visible {
+    right: 0;
+  }
+  
+  /* ====== Panel Header ====== */
+  .slideout-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .slideout-header h3 {
+    font-size: 1.4rem;
+    margin: 0;
+    color: #1a3d7c;
+  }
+  
+  .slideout-header button {
+    font-size: 1.6rem;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+  }
+  
+  /* ====== Metric Boxes (Now Horizontal) ====== */
+  .overrun-metrics {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+  
+  .metric-box {
+    flex: 0 0 auto;
+    min-width: 220px;
+    background-color: #f5f7fb;
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: inset 0 0 0 1px #dee2e6;
+  }
+  
+  .metric-box label {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  .metric-box div {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #1a3d7c;
+  }
+  
+  /* ====== Table Container ====== */
+  .overrun-table-container {
+    overflow-x: auto;
+  }
+  
+  .overrun-table-container table.kpi-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* ====== Table Headers and Cells ====== */
+  .overrun-table-container th,
+  .overrun-table-container td {
+    padding: 0.75rem;
+    border: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+    text-align: left;
+  }
+  
+  .overrun-table-container th {
+    background-color: #f1f5fa;
+    color: #1a3d7c;
+    font-weight: 600;
+  }
+  
+  /* ====== Highlight Part-Level Summary Columns ====== */
+  .part-summary-cell {
+    background-color: #eef4fc;
+    font-weight: bold;
+    color: #0a2f63;
+    border-left: 2px solid #c0d3ec;
+    border-right: 2px solid #c0d3ec;
+  }
+  
+  
+  
