@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Manager Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/manager_styling.css') }}" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body>
+  <div class="dashboard-container">
+
+    <!-- 🔗 Sidebar -->
+    {% include 'manager_navbar.html' %}
+
+    <!-- 📊 Main Content -->
+    <main class="main-content">
+
+      <!-- 🔹 Active Job Metrics Section -->
+      <section class="dashboard-section section-block">
+        <div class="section-header">
+          <h2><span>📊</span> Active Job Summary</h2>
+        </div>
+        <div id="summary-metrics" class="metrics-section top-band"></div>
+      </section>
+
+      <!-- 🛠️ Active Job Cards Section -->
+      <section class="dashboard-section section-block job-layout-with-sidebar">
+        <div class="section-header">
+          <h2><span>🛠️</span> Active Jobs</h2>
+        </div>
+        <div class="job-grid-wrapper">
+          <div id="active-jobs" class="job-cards-grid"></div>
+          <div id="job-summary-sidebar" class="metrics-sidebar"></div>
+        </div>
+      </section>
+
+      <!-- 🔍 D&I Metrics Section -->
+      <section class="dashboard-section section-block">
+        <div class="section-header">
+          <h2><span>🧾</span> Dismantle & Inspection Summary</h2>
+        </div>
+        <div id="di-summary-metrics" class="metrics-grid compact di"></div>
+      </section>
+
+      <!-- 🧰 D&I Job Cards Section -->
+      <section class="dashboard-section section-block">
+        <div class="section-header">
+          <h2><span>🧰</span> Dismantling & Inspection Jobs</h2>
+        </div>
+        <div id="di-jobs" class="job-cards-grid"></div>
+      </section>
+
+    </main>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/manager_dashboard.js') }}"></script>
+</body>
+</html>
+

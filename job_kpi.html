@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Job KPI – {{ job_number }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/job_kpi.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+
+<div id="job-kpi-container" class="job-kpi-wrapper">
+
+  <header class="kpi-header-flex">
+    <div class="kpi-header-main">
+      <h1 class="kpi-title">Job KPI</h1>
+      <div class="kpi-subtitle">
+        <span class="job-id">#{{ job_number }}</span>
+        <span class="customer-name">Customer: {{ customer_name }}</span>
+      </div>
+    </div>
+    <div class="kpi-due-date">
+      <label>Due Date:</label>
+      <span>{{ due_date or 'N/A' }}</span>
+    </div>
+  </header>
+  
+
+  <aside class="kpi-sidebar">
+    <!-- Labor Overruns -->
+    <button id="toggleOverruns" class="sidebar-btn" data-label="Labor Overruns: View all tasks where actual hours exceeded planned hours">
+      <i class="fas fa-clock"></i>
+    </button>
+  
+    <!-- Cost Drivers -->
+    <button id="toggleCostDrivers" class="sidebar-btn" data-label="Top Cost Drivers: Review which tasks or parts are driving up labor cost">
+      <i class="fas fa-dollar-sign"></i>
+    </button>
+  
+    <!-- Work Center Trends -->
+    <button id="toggleWCTrends" class="sidebar-btn" data-label="Work Center Trends: Analyze performance across machining areas and stations">
+      <i class="fas fa-industry"></i>
+    </button>
+  
+    <!-- Idle Time -->
+    <button id="toggleIdleOps" class="sidebar-btn" data-label="Idle Operations: See operations with no hours logged and still pending">
+      <i class="fas fa-pause-circle"></i>
+    </button>
+  
+    <!-- Logistics Overview -->
+    <button id="toggleLogistics" class="sidebar-btn" data-label="Logistics: Monitor delayed POs, received material, and pending deliveries">
+      <i class="fas fa-truck-loading"></i>
+    </button>
+  
+    <!-- Equipment Runtime Analysis -->
+    <button id="toggleMachineRuntime" class="sidebar-btn" data-label="Equipment Runtime: Track machine on-time, idle time, off periods, and vibration anomalies">
+      <i class="fas fa-wave-square"></i>
+    </button>
+  
+    <!-- Summary Report -->
+    <button id="toggleSummary" class="sidebar-btn" data-label="Job Summary: View overall job performance, margins, delays, and cost breakdown">
+      <i class="fas fa-file-alt"></i>
+    </button>
+  </aside>
+  
+  
+
+
+  <!-- 📦 Metric Cards -->
+  <section class="kpi-metrics-panel">
+
+    <div class="kpi-metric-group">
+      <h4>Labor Metrics</h4>
+      <div class="kpi-metric-list">
+        <div class="kpi-metric-item"><span>Total Planned Hours</span><strong>{{ total_planned_hours }}</strong></div>
+        <div class="kpi-metric-item"><span>Total Actual Hours</span><strong>{{ total_actual_hours }}</strong></div>
+        <div class="kpi-metric-item"><span>Planned Labor Cost</span><strong>{{ total_planned_labor_cost }}</strong></div>
+        <div class="kpi-metric-item"><span>Actual Labor Cost</span><strong>{{ total_actual_labor_cost }}</strong></div>
+      </div>
+    </div>
+  
+    <div class="kpi-metric-group">
+      <h4>Cost Breakdown</h4>
+      <div class="kpi-metric-list">
+        <div class="kpi-metric-item"><span>Total Planned Cost</span><strong>{{ total_planned_cost }}</strong></div>
+        <div class="kpi-metric-item"><span>Total Actual Cost</span><strong>{{ total_actual_cost }}</strong></div>
+        <div class="kpi-metric-item"><span>Goods Cost (All)</span><strong>{{ total_goods_cost }}</strong></div>
+        <div class="kpi-metric-item"><span>Cost Received</span><strong>{{ cost_goods_received }}</strong></div>
+        <div class="kpi-metric-item"><span>Cost to Receive</span><strong>{{ cost_goods_to_be_received }}</strong></div>
+      </div>
+    </div>
+  
+    <div class="kpi-metric-group">
+      <h4>Profitability</h4>
+      <div class="kpi-metric-list">
+        <div class="kpi-metric-item"><span>Order Value</span><strong>{{ order_value }}</strong></div>
+        <div class="kpi-metric-item"><span>Profit Margin</span><strong>{{ profit_margin }}</strong></div>
+        <div class="kpi-metric-item"><span>Profit Value</span><strong>{{ profit_value }}</strong></div>
+      </div>
+    </div>
+  
+    <div class="kpi-metric-group">
+      <h4>Performance Stats</h4>
+      <div class="kpi-metric-list">
+        <div class="kpi-metric-item"><span># Ops Over Hours</span><strong>{{ over_hours_count }}</strong></div>
+        <div class="kpi-metric-item"><span># Ops On/Under</span><strong>{{ under_or_on_target_hours_count }}</strong></div>
+        <div class="kpi-metric-item"><span>Performance Score</span><strong>{{ overall_performance_score }}</strong></div>
+      </div>
+    </div>
+  
+    <div class="kpi-metric-group">
+      <h4>Logistics</h4>
+      <div class="kpi-metric-list">
+        <div class="kpi-metric-item"><span>Qty Goods Received</span><strong>{{ quantity_goods_received }}</strong></div>
+        <div class="kpi-metric-item"><span>Qty to Be Received</span><strong>{{ quantity_goods_to_be_received }}</strong></div>
+      </div>
+    </div>
+  
+  </section>
+  
+
+<!-- 🛠 Work Center Summary -->
+<section class="kpi-section">
+  <h3>Work Center Summary</h3>
+  <div class="chart-container">
+    <canvas id="workCenterChart"></canvas>
+  </div>
+</section>
+
+
+<!-- 📦 Labor Overrun Panel -->
+<div id="overrunPanel" class="slideout-panel">
+  <div class="slideout-header">
+    <h3>Labor Overrun Summary</h3>
+    <button id="closeOverruns">&times;</button>
+  </div>
+
+<!-- 📈 Overrun Summary Metrics -->
+<div class="overrun-metrics">
+  <div class="metric-row">
+    <div class="metric-box">
+      <label>Parts with Overruns</label>
+      <div>{{ unique_parts }}</div>
+    </div>
+    <div class="metric-box">
+      <label>Total Overrun Hours</label>
+      <div>{{ total_overrun_hours }}</div>
+    </div>
+    <div class="metric-box">
+      <label>Total Overrun Cost</label>
+      <div>$ {{ total_overrun_cost }}</div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- 📊 Overrun Table -->
+  <div class="overrun-table-container">
+    <table class="kpi-table">
+      <thead>
+        <tr><th>Part</th><th>Work Center</th><th>Task</th><th>Extra Hours</th><th>Extra Cost</th></tr>
+      </thead>
+      <tbody>
+        {% for row in overrun_details %}
+          <tr>
+            <td>{{ row.part }}</td>
+            <td>{{ row.work_center }}</td>
+            <td>{{ row.task_description }}</td>
+            <td>{{ row.extra_hours }}</td>
+            <td>${{ row.extra_cost }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 💸 Top Cost Drivers Panel -->
+<div id="costDriverPanel" class="slideout-panel">
+  <div class="slideout-header">
+    <h3>Top Labor Cost Drivers</h3>
+    <button id="closeCostDrivers">&times;</button>
+  </div>
+
+  <!-- 📊 Summary Metric Cards -->
+  <div class="overrun-metrics">
+    <div class="metric-box">
+      <label>Total Cost From Top 4</label>
+      <div>${{ "{:,.2f}".format(driver_total_cost) }}</div>
+    </div>
+    <div class="metric-box">
+      <label>% of Total Overrun</label>
+      <div>{{ driver_cost_pct }}%</div>
+    </div>
+    <div class="metric-box">
+      <label>Labor Cost Over Plan</label>
+      <div>{{ labor_cost_pct_over }}%</div>
+    </div>
+  </div>
+
+  <!-- 📋 Top Cost Breakdown Table -->
+  <div class="overrun-table-container">
+    <table class="kpi-table">
+      <thead>
+        <tr>
+          <th>Part</th>
+          <th>Task</th>
+          <th>Work Center</th>
+          <th>Planned Hours</th>
+          <th>Actual Hours</th>
+          <th>Extra Hours</th>
+          <th>Cost Overrun</th>
+          <th>Part Cost (Planned)</th>
+          <th>Part Cost (Actual)</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in top_cost_drivers %}
+          <tr>
+            <td>{{ row.part }}</td>
+            <td>{{ row.task }}</td>
+            <td>{{ row.work_center }}</td>
+            <td>{{ "{:,.1f}".format(row.planned_hours) }}</td>
+            <td>{{ "{:,.1f}".format(row.actual_hours) }}</td>
+            <td>{{ "{:,.1f}".format(row.extra_hours) }}</td>
+            <td>${{ "{:,.2f}".format(row.cost_overrun) }}</td>
+            <td class="part-summary-cell">${{ "{:,.2f}".format(row.total_part_planned_cost) }}</td>
+            <td class="part-summary-cell">${{ "{:,.2f}".format(row.total_part_actual_cost) }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 🏭 Work Center Trends Panel -->
+<div id="wcTrendPanel" class="slideout-panel">
+  <div class="slideout-header">
+    <h3>Work Center Performance Trends</h3>
+    <button id="closeWCTrends">&times;</button>
+  </div>
+
+  <!-- 📊 Metric Cards -->
+  <div class="overrun-metrics">
+    <div class="metric-box">
+      <label>Total Completed Operations</label>
+      <div>{{ total_completed_ops }}</div>
+    </div>
+    <div class="metric-box">
+      <label>Avg Efficiency</label>
+      <div>{{ avg_efficiency }}%</div>
+    </div>
+    <div class="metric-box">
+      <label>Best Performing WC</label>
+      <div>{{ best_wc or "N/A" }}</div>
+    </div>
+    <div class="metric-box">
+      <label>Worst Performing WC</label>
+      <div>{{ worst_wc or "N/A" }}</div>
+    </div>
+  </div>
+
+  <!-- 📋 Detailed Table -->
+  <div class="overrun-table-container">
+    <table class="kpi-table">
+      <thead>
+        <tr>
+          <th>Work Center</th>
+          <th>Ops Completed</th>
+          <th>Planned Hours</th>
+          <th>Actual Hours</th>
+          <th>Efficiency</th>
+          <th>Planned Cost</th>
+          <th>Actual Cost</th>
+          <th>Cost Variance</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in work_center_trends %}
+        <tr>
+          <td>{{ row.work_center }}</td>
+          <td>{{ row.ops_completed }}</td>
+          <td>{{ "{:,.1f}".format(row.planned_hours) }}</td>
+          <td>{{ "{:,.1f}".format(row.actual_hours) }}</td>
+          <td>{{ "{:,.1f}".format(row.efficiency) }}%</td>
+          <td>${{ "{:,.2f}".format(row.planned_cost) }}</td>
+          <td>${{ "{:,.2f}".format(row.actual_cost) }}</td>
+          <td>${{ "{:,.2f}".format(row.cost_variance) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+  <!-- 📦 Delayed POs -->
+  {% if delayed_pos %}
+    <section class="kpi-section">
+      <h3>Delayed Purchase Orders</h3>
+      <table class="kpi-table">
+        <thead>
+          <tr><th>PO Number</th><th>Description</th><th>Expected Delivery</th><th>Days Late</th><th>Pending Value</th></tr>
+        </thead>
+        <tbody>
+          {% for po in delayed_pos %}
+            <tr>
+              <td>{{ po.po_number }}</td>
+              <td>{{ po.description }}</td>
+              <td>{{ po.expected_delivery }}</td>
+              <td class="text-danger">{{ po.days_late }}</td>
+              <td>${{ po.pending_value }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  {% endif %}
+
+  <!-- ⛔ Idle Operations -->
+  {% if idle_operations %}
+    <section class="kpi-section">
+      <h3>Idle Operations</h3>
+      <table class="kpi-table">
+        <thead>
+          <tr><th>Part</th><th>Work Center</th><th>Task</th><th>Planned Hours</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          {% for op in idle_operations %}
+            <tr>
+              <td>{{ op.part_name }}</td>
+              <td>{{ op.work_center }}</td>
+              <td>{{ op.task_description }}</td>
+              <td>{{ op.planned_hours }}</td>
+              <td>{{ op.status }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  {% endif %}
+
+  <!-- 📋 Top Task Costs -->
+  <section class="kpi-section">
+    <h3>Top Task Costs</h3>
+    <table class="kpi-table">
+      <thead>
+        <tr><th>Task</th><th>Part</th><th>Work Center</th><th>Planned Cost</th><th>Actual Cost</th></tr>
+      </thead>
+      <tbody>
+        {% for row in task_costs %}
+          <tr>
+            <td>{{ row.task }}</td>
+            <td>{{ row.part }}</td>
+            <td>{{ row.work_center }}</td>
+            <td>${{ row.planned_cost }}</td>
+            <td>${{ row.actual_cost }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+<!-- ⚠️ Root Cause Flags -->
+{% if flags %}
+  <div class="kpi-alert">
+    <h4>⚠ Performance Issues Detected</h4>
+    <ul>
+      {% for flag in flags %}
+        <li>{{ flag }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+</div> <!-- ✅ Closes .job-kpi-wrapper -->
+
+<!-- ✅ Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ✅ Load custom JS -->
+<script src="{{ url_for('static', filename='js/job_kpi.js') }}"></script>
+
+<!-- ✅ Pass data to JS -->
+<script>
+  window.kpiChartData = {
+    labels: {{ work_center_summary | map(attribute='work_center') | list | tojson }},
+    planned: {{ work_center_summary | map(attribute='planned') | list | tojson }},
+    actual: {{ work_center_summary | map(attribute='actual') | list | tojson }}
+  };
+</script>
+
+</body>
+</html>

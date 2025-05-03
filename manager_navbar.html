@@ -1,0 +1,75 @@
+<!-- Include Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<aside class="manager-sidebar expanded" id="sidebar">
+    <div class="sidebar-header">
+        <button id="toggleSidebar" aria-label="Toggle sidebar">
+            <i data-lucide="chevron-left"></i>
+        </button>
+        <h2 class="sidebar-title">FlowOps</h2>
+    </div>
+
+    <nav class="sidebar-nav">
+        <!-- 📁 Operations -->
+        <div class="nav-section">
+            <h3 class="nav-section-title">Operations</h3>
+            <ul class="nav-list">
+                <li><a href="/manager/dashboard" title="Dashboard"><i data-lucide="layout-dashboard"></i><span>Dashboard</span></a></li>
+                <li><a href="/manager/jobs" title="Job Overview"><i data-lucide="briefcase"></i><span>Job Overview</span></a></li>
+                <li><a href="/manager/workcenters" title="Work Centers"><i data-lucide="cpu"></i><span>Work Centers</span></a></li>
+                <li><a href="/manager/logistics" title="Logistics"><i data-lucide="truck"></i><span>Logistics</span></a></li>
+                <li><a href="/manager/history" title="Job History"><i data-lucide="history"></i><span>Job History</span></a></li>
+            </ul>
+        </div>
+
+        <!-- 📊 Analytics -->
+        <div class="nav-section">
+            <h3 class="nav-section-title">Insights</h3>
+            <ul class="nav-list">
+                <li><a href="/manager/parts" title="Part Performance"><i data-lucide="layers"></i><span>Part Performance</span></a></li>
+                <li><a href="/manager/employees" title="Employee Metrics"><i data-lucide="users"></i><span>Employees</span></a></li>
+                <li><a href="/manager/forecasting" title="Forecasting"><i data-lucide="bar-chart-2"></i><span>Forecasting</span></a></li>
+                <li><a href="/manager/ncr" title="NCR Tracker"><i data-lucide="alert-octagon"></i><span>NCR Tracker</span></a></li>
+            </ul>
+        </div>
+
+        <!-- ⚙️ Utilities -->
+        <div class="nav-section nav-compact">
+            <ul class="nav-list compact">
+                <li><a href="/manager/notifications" title="Notifications"><i data-lucide="bell"></i></a></li>
+                <li><a href="/manager/settings" title="Settings"><i data-lucide="settings"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+</aside>
+
+<script>
+    const sidebar = document.getElementById("sidebar");
+    const toggleButton = document.getElementById("toggleSidebar");
+
+    // Force collapsed state on initial load
+    sidebar.classList.remove("expanded");
+    sidebar.classList.add("collapsed");
+
+    // Update toggle icon
+    const icon = toggleButton.querySelector("i");
+    icon.setAttribute("data-lucide", "chevron-right");
+    lucide.createIcons();
+
+    toggleButton.addEventListener("click", () => {
+        sidebar.classList.toggle("collapsed");
+        sidebar.classList.toggle("expanded");
+
+        const iconName = sidebar.classList.contains("collapsed") ? "chevron-right" : "chevron-left";
+        icon.setAttribute("data-lucide", iconName);
+        lucide.createIcons();
+
+        // Dynamically update content margin
+        document.body.setAttribute("data-sidebar", sidebar.classList.contains("collapsed") ? "collapsed" : "expanded");
+    });
+
+    // Also update body attribute on load
+    document.body.setAttribute("data-sidebar", "collapsed");
+</script>
+
+
